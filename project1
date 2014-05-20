@@ -1,0 +1,43 @@
+import sys
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
+class penproperties(QDialog):
+
+  def __init__(self,parent=None):
+    super(penproperties,self).__init__(parent)
+
+    widthlabel = QLabel("Width")
+    self.widthspinbox = QSpinBox()
+    widthlabel.setBuddy(self.widthspinbox)
+    self.widthspinbox.setAlignment(Qt.AlignRight)
+    self.widthspinbox.setRange(0,24)
+    self.checkbox= QCheckBox("Belleved edges")
+    stylelabel =QLabel("Style")
+    self.combobox=QComboBox()
+    stylelabel.setBuddy(self.combobox)
+    self.combobox.addItems(["solid","dashed","dotted"])
+    okbutton = QPushButton("ok")
+    cancelbutton= QPushButton("cancel")
+    buttonlayout = QHBoxLayout()
+    buttonlayout.addStretch()
+    buttonlayout.addWidget(okbutton)
+    buttonlayout.addWidget(cancelbutton)
+    layout = QGridLayout()
+    layout.addWidget(widthlabel,0,0)
+    layout.addWidget(self.widthspinbox,0,1)
+    layout.addWidget(self.checkbox,0,2)
+    layout.addWidget(stylelabel,1,0)
+    layout.addWidget(self.combobox,1,1,1,2)
+    layout.addLayout(buttonlayout,2,0,1,3)
+    self.setLayout(layout)
+    self.connect(okbutton,SIGNAL("clicked()"),self,SLOT("accept()"))
+    self.connect(cancelbutton,SIGNAL("clicked()"),self,SLOT("reject()"))
+    self.setWindowTitle("tmpass")
+def main():
+  app = QApplication(sys.argv)
+  penpropertiess = penproperties()
+  penpropertiess.show()
+  app.exec_()
+if __name__ == '__main__':
+  main()
